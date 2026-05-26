@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 import boto3
 import json
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -10,7 +13,7 @@ sqs = boto3.client(
     region_name="us-east-1"
 )
 
-QUEUE_URL = os.environ.get("QUEUE_URL")
+QUEUE_URL = os.getenv("QUEUE_URL")
 
 @app.route("/order", methods=["POST"])
 def create_order():
